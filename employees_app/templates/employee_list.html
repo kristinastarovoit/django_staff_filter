@@ -1,27 +1,63 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Staff Filter App</title>
-  </head>
-  <body>
-    <h1>Staff Filter App</h1>
 
-    <h2>Aufgaben:</h2>
-    <ol>
-      <li>Zeige hier im Template eine Liste aller Mitarbeiter, ihrer Abteilung und ihres Gehalts an.</li>
-      <li>Zeige eine Liste der Namen aller Mitarbeiter, die mehr als 3000 € im Monat verdienen.</li>
-      <li>Wie hoch ist die Anzahl der Mitarbeiter, die 5000 € im Monat oder mehr verdienen?</li>
-    </ol>
-    <h3>Zusatzaufgaben:</h3>
-    <ol start="4">
-      <li>Wie hoch ist das Durchschnittsgehalt aller Mitarbeiter im Sales-Team? Zeige das Ergebnis auf zwei Nachkommastellen gerundet an.</li>
-      <li>Welche Mitarbeiter wurden vor dem 1. Januar 2022 eingestellt und gehören NICHT zur Abteilung HR?</li>
-    </ol>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staff Filter App</title>
+</head>
 
-    <h2 style="color:red">Antworten:</h2>
+<body>
+  <h1>Staff Filter App</h1>
 
-    <!-- Hier eure Antworten rendern -->
-  </body>
+  <h2>Aufgaben:</h2>
+  <ol>
+    <li>Zeige hier im Template eine Liste aller Mitarbeiter, ihrer Abteilung und ihres Gehalts an.</li>
+    <li>Zeige eine Liste der Namen aller Mitarbeiter, die mehr als 3000 € im Monat verdienen.</li>
+    <li>Wie hoch ist die Anzahl der Mitarbeiter, die 5000 € im Monat oder mehr verdienen?</li>
+  </ol>
+  <h3>Zusatzaufgaben:</h3>
+  <ol start="4">
+    <li>Wie hoch ist das Durchschnittsgehalt aller Mitarbeiter im Sales-Team? Zeige das Ergebnis auf zwei
+      Nachkommastellen gerundet an.</li>
+    <li>Welche Mitarbeiter wurden vor dem 1. Januar 2022 eingestellt und gehören NICHT zur Abteilung HR?</li>
+  </ol>
+
+  <h2 style="color:red">Antworten:</h2>
+
+  <h3>All Employees</h3>
+  <ul>
+    {% for employee in all %}
+    <li>
+      <!-- weil die __str__ methode den department name ausgibt, reicht eig auch employee.department -->
+      <b>{{ employee.name }}:</b>Salaray: {{ employee.salary }}€, Department: {{ employee.department.name }}
+    </li>
+    {% endfor %}
+  </ul>
+  <h3>Employees with salary over 3000€</h3>
+  <ul>
+    {% for employee in gt_3000 %}
+    <li>
+      {{ employee.name }}
+    </li>
+    {% endfor %}
+  </ul>
+
+  <h3>Amount of employees with salary greater than or equal to 5000€</h3>
+  <p><b>{{gte_5000}}</b></p>
+
+  <h3>Average salary of employees in the Sales Department</h3>
+  <p>{{ avg_sales.salary__avg|floatformat:2 }}€</b></p>
+
+  <h3>Employees hired before January 1st 2022 not in HR</h3>
+  <ul>
+    {% for employee in new_not_hr %}
+    <li>
+      {{ employee.name }}
+    </li>
+    {% endfor %}
+  </ul>
+
+</body>
+
 </html>
